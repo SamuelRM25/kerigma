@@ -10,13 +10,13 @@ import { useLanguage } from "@/lib/language";
 type Slide =
   | { kind: "title" }
   | { kind: "framed"; src: string; alt: string }
-  | { kind: "verse" };
+  | { kind: "fullscreen"; src: string; alt: string };
 
 const SLIDES: Slide[] = [
   { kind: "title" },
   { kind: "framed", src: "/assets/hero/hero-1.jpeg", alt: "KERYGMA — Lion of Judah design" },
   { kind: "framed", src: "/assets/hero/hero-3.jpeg", alt: "Camino, Verdad y Vida" },
-  { kind: "verse" },
+  { kind: "fullscreen", src: "/assets/hero/hero-6.jpeg", alt: "Jeremías 31:3 — Con amor eterno te he amado" },
   { kind: "framed", src: "/assets/hero/hero-7.jpeg", alt: "Jesús es real" },
 ];
 
@@ -148,19 +148,27 @@ function SlideContent({
   if (slide.kind === "title") {
     return (
       <div className="relative h-full w-full flex items-center justify-center bg-kerygma-black overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06]">
+        <motion.div
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0"
+        >
           <Image
             src="/assets/logo/kerygma-logo.png"
             alt=""
             fill
+            priority
             sizes="100vw"
-            className="object-contain"
+            className="object-cover opacity-[0.12]"
           />
-        </div>
+        </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-b from-kerygma-black/40 via-transparent to-kerygma-black/60" />
+
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
           className="relative text-center px-6"
         >
           <p className="font-serif italic text-kerygma-red text-lg sm:text-2xl mb-4">
@@ -175,38 +183,25 @@ function SlideContent({
     );
   }
 
-  if (slide.kind === "verse") {
+  if (slide.kind === "fullscreen") {
     return (
-      <div className="relative h-full w-full flex items-center justify-center bg-kerygma-black overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
-          <div className="relative w-[55vmin] h-[55vmin]">
-            <Image
-              src="/assets/logo/kerygma-logo.png"
-              alt=""
-              fill
-              sizes="60vmin"
-              className="object-contain"
-            />
-          </div>
-        </div>
-
+      <div className="relative h-full w-full bg-kerygma-black overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="relative text-center px-6 max-w-4xl"
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute inset-0"
         >
-          <p className="font-serif italic text-3xl sm:text-5xl md:text-7xl text-kerygma-white leading-tight">
-            “{t.hero.verseQuote}”
-          </p>
-          <div className="mt-8 mx-auto h-px w-20 bg-kerygma-red" />
-          <p className="mt-6 font-display text-2xl sm:text-3xl tracking-[0.3em] text-kerygma-red">
-            {t.hero.verseReference}
-          </p>
-          <p className="mt-4 font-display text-2xl sm:text-3xl tracking-widest text-kerygma-white">
-            KERYGMA
-          </p>
+          <Image
+            src={slide.src}
+            alt={slide.alt}
+            fill
+            priority={index === 0}
+            sizes="100vw"
+            className="object-cover"
+          />
         </motion.div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-kerygma-black/30 via-transparent to-kerygma-black/10" />
       </div>
     );
   }
@@ -220,8 +215,11 @@ function SlideContent({
         transition={{ duration: 1.1, ease: "easeOut" }}
         className="relative h-full w-full flex items-center justify-center"
       >
-        {/* The image — letterboxed (object-contain), bigger (no inset padding) */}
-        <div className="relative h-full w-full">
+        {/* Scaled wrapper so the photo reads bigger while staying letterboxed */}
+        <div
+          className="relative h-full w-full"
+          style={{ transform: "scale(1.18)", transformOrigin: "center center" }}
+        >
           <Image
             src={slide.src}
             alt={slide.alt}
@@ -233,13 +231,10 @@ function SlideContent({
         </div>
       </motion.div>
 
-      {/* Left edge integration — fade photo's left side into black */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-[28%] sm:w-[24%] bg-gradient-to-r from-kerygma-black via-kerygma-black/55 to-transparent z-10" />
-      {/* Right edge integration — fade photo's right side into black */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-[28%] sm:w-[24%] bg-gradient-to-l from-kerygma-black via-kerygma-black/55 to-transparent z-10" />
-      {/* Subtle red edge line on the integrated sides */}
-      <div className="pointer-events-none absolute inset-y-[15%] left-[2%] w-px bg-gradient-to-b from-transparent via-kerygma-red/30 to-transparent z-20 hidden sm:block" />
-      <div className="pointer-events-none absolute inset-y-[15%] right-[2%] w-px bg-gradient-to-b from-transparent via-kerygma-red/30 to-transparent z-20 hidden sm:block" />
+      {/* Left edge integration */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-[22%] sm:w-[18%] bg-gradient-to-r from-kerygma-black via-kerygma-black/70 to-transparent z-10" />
+      {/* Right edge integration */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-[22%] sm:w-[18%] bg-gradient-to-l from-kerygma-black via-kerygma-black/70 to-transparent z-10" />
     </div>
   );
 }

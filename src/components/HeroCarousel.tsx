@@ -10,13 +10,13 @@ import { useLanguage } from "@/lib/language";
 type Slide =
   | { kind: "title" }
   | { kind: "framed"; src: string; alt: string }
-  | { kind: "fullscreen"; src: string; alt: string };
+  | { kind: "verse" };
 
 const SLIDES: Slide[] = [
   { kind: "title" },
   { kind: "framed", src: "/assets/hero/hero-1.jpeg", alt: "KERYGMA — Lion of Judah design" },
   { kind: "framed", src: "/assets/hero/hero-3.jpeg", alt: "Camino, Verdad y Vida" },
-  { kind: "fullscreen", src: "/assets/hero/hero-6.jpeg", alt: "Jeremías 31:3 — Con amor eterno te he amado" },
+  { kind: "verse" },
   { kind: "framed", src: "/assets/hero/hero-7.jpeg", alt: "Jesús es real" },
 ];
 
@@ -183,25 +183,43 @@ function SlideContent({
     );
   }
 
-  if (slide.kind === "fullscreen") {
+  if (slide.kind === "verse") {
     return (
-      <div className="relative h-full w-full bg-kerygma-black overflow-hidden">
+      <div className="relative h-full w-full flex items-center justify-center bg-kerygma-black overflow-hidden">
         <motion.div
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.06 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="absolute inset-0"
         >
           <Image
-            src={slide.src}
-            alt={slide.alt}
+            src="/assets/logo/kerygma-diseño.png"
+            alt=""
             fill
-            priority={index === 0}
+            priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover opacity-[0.12]"
           />
         </motion.div>
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-kerygma-black/30 via-transparent to-kerygma-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-kerygma-black/40 via-transparent to-kerygma-black/60" />
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          className="relative text-center px-6 max-w-4xl"
+        >
+          <p className="font-serif italic text-3xl sm:text-5xl md:text-7xl text-kerygma-white leading-tight">
+            “{t.hero.verseQuote}”
+          </p>
+          <div className="mt-8 mx-auto h-px w-20 bg-kerygma-red" />
+          <p className="mt-6 font-display text-2xl sm:text-3xl tracking-[0.3em] text-kerygma-red">
+            {t.hero.verseReference}
+          </p>
+          <p className="mt-4 font-display text-2xl sm:text-3xl tracking-widest text-kerygma-white">
+            KERYGMA
+          </p>
+        </motion.div>
       </div>
     );
   }

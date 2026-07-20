@@ -1,0 +1,60 @@
+{
+  "nav": {
+    "home": "Home",
+    "categories": "Categories",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "slide1Title": "KERYGMA",
+    "slide1Subtitle": "Clothing that proclaims",
+    "slide2Title": "Designs with purpose",
+    "slide2Subtitle": "Made to carry the message",
+    "verseQuote": "I have loved you with an everlasting love",
+    "verseReference": "Jeremiah 31:3",
+    "cta": "View collections"
+  },
+  "categories": {
+    "title": "Categories",
+    "subtitle": "Find your style",
+    "viewMore": "View more",
+    "hoodies": "Hoodies",
+    "hoodiesDesc": "With hood and crew neck",
+    "tshirt": "T-Shirt",
+    "tshirtDesc": "Regular and Oversize",
+    "balaclava": "Balaclava",
+    "balaclavaDesc": "Style that covers"
+  },
+  "video": {
+    "title": "In motion",
+    "muted": "Mute",
+    "unmuted": "Unmute"
+  },
+  "about": {
+    "title": "Who are we?",
+    "vision": "Vision",
+    "description": "KERYGMA is a Christian streetwear brand born to carry the message of faith through fashion. Every piece is designed with purpose: to proclaim the love of Christ with style, character and truth.",
+    "visionText": "To be a brand that dresses an entire generation with the truth of the gospel, bringing design, identity and purpose to every congregation, expo and street."
+  },
+  "testimonials": {
+    "title": "Happy customers",
+    "subtitle": "What people wearing KERYGMA say"
+  },
+  "presence": {
+    "title": "Presence",
+    "subtitle1": "In congregations",
+    "subtitle2": "",
+    "description": "You'll find us carrying the message to every event, church and congregation. KERYGMA isn't just clothing: it's presence."
+  },
+  "footer": {
+    "tagline": "Clothing that proclaims",
+    "rights": "All rights reserved",
+    "followUs": "Follow us"
+  },
+  "whatsapp": {
+    "tooltip": "Message us on WhatsApp"
+  },
+  "common": {
+    "language": "Language"
+  }
+}
